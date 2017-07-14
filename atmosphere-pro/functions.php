@@ -379,3 +379,17 @@ add_theme_support( 'genesis-style-selector',
 		'ehe-blue2' => 'EHE',
 	) 
 );
+
+/* Display Featured Image on top of the post */
+add_action( 'genesis_before_entry_content', 'featured_post_image', 8 );
+function featured_post_image() {
+  if ( ! is_singular( 'post' ) )  return;
+	the_post_thumbnail('post-image');
+}
+
+// Customize entry meta header
+add_filter( 'genesis_post_info', 'themeprefix_post_info_filter' );
+function themeprefix_post_info_filter( $post_info ) {
+ $post_info = 'by [post_author_posts_link] [post_comments] [post_edit]';
+ return $post_info;
+}
